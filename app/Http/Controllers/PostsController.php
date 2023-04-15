@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
 use App\Comment;
+use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -61,7 +61,7 @@ class PostsController extends Controller
         }
         $post = Post::whereId($id)->first();
 
-        if (!$post || ($post->user_id != Auth::id())) {
+        if (!$post || ($post->user_id != Auth::id()) && !(Auth::user()->userDetail->is_admin ?? false)) {
             abort(403, 'Permission denied');
         }
         $post->fill($request->only([
@@ -86,7 +86,7 @@ class PostsController extends Controller
     {
         $post = Post::whereId($id)->first();
 
-        if (!$post || ($post->user_id != Auth::id())) {
+        if (!$post || ($post->user_id != Auth::id()) && !(Auth::user()->userDetail->is_admin ?? false)) {
             abort(403, 'Permission denied');
         }
         $post->delete();

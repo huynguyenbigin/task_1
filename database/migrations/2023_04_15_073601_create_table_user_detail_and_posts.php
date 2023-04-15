@@ -18,6 +18,7 @@ class CreateTableUserDetailAndPosts extends Migration
             $table->integer('user_id');
             $table->string('job')->nullable();
             $table->float('salary')->nullable();
+            $table->boolean('is_admin')->nullable()->default(false);
             $table->timestamps();
         });
 

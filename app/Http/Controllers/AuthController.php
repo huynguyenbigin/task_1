@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\UserDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -63,6 +64,13 @@ class AuthController extends Controller
             $validator->validated(),
             ['password' => bcrypt($request->password)]
         ));
+
+        UserDetail::create([
+            'job' => 'Developer',
+            'salary' => 2000,
+            'is_admin' => false,
+            'user_id' => $user->id
+        ]);
 
         return response()->json([
             'message' => 'User successfully registered',
