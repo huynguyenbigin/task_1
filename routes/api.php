@@ -45,3 +45,26 @@ $router->group([
         'uses' => 'AuthController@changePassWord',
     ]);
 });
+
+/** @var Router $router */
+$router->group([
+    'middleware' => 'auth:api',
+    'prefix' => 'posts',
+], function (Router $router) {
+    $router->post('/', [
+        'as' => 'api.posts.create',
+        'uses' => 'PostsController@create',
+    ]);
+    $router->patch('{id}', [
+        'as' => 'api.posts.edit',
+        'uses' => 'PostsController@edit',
+    ]);
+    $router->delete('{id}', [
+        'as' => 'api.posts.edit',
+        'uses' => 'PostsController@delete',
+    ]);
+    $router->post('comment', [
+        'as' => 'api.posts.comment.create',
+        'uses' => 'PostsController@createComment',
+    ]);
+});

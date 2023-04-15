@@ -16,16 +16,25 @@ class CreateTableUserDetailAndPosts extends Migration
         Schema::create('user_details', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->string('job');
-            $table->float('salary');
+            $table->string('job')->nullable();
+            $table->float('salary')->nullable();
             $table->timestamps();
         });
 
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description');
-            $table->text('content');
+            $table->string('title')->nullable();
+            $table->text('description')->nullable();
+            $table->text('content')->nullable();
+            $table->integer('user_id');
+            $table->timestamps();
+        });
+
+        Schema::create('comments', function (Blueprint $table) {
+            $table->id();
+            $table->text('comment');
+            $table->text('reply')->nullable();
+            $table->integer('post_id');
             $table->integer('user_id');
             $table->timestamps();
         });
@@ -40,5 +49,6 @@ class CreateTableUserDetailAndPosts extends Migration
     {
         Schema::dropIfExists('user_details');
         Schema::dropIfExists('posts');
+        Schema::dropIfExists('comments');
     }
 }
