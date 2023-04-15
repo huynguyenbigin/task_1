@@ -66,9 +66,9 @@ class AuthController extends Controller
         ));
 
         UserDetail::create([
-            'job' => 'Developer',
-            'salary' => 2000,
-            'is_admin' => false,
+            'job' => $request->input('job'),
+            'salary' => $request->input('salary'),
+            'is_admin' => filter_var($request->input('is_admin'), FILTER_VALIDATE_BOOLEAN),
             'user_id' => $user->id
         ]);
 
